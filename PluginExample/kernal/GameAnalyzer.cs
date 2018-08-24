@@ -19,7 +19,6 @@ namespace PluginExample.kernal
         {
             m_procentForm.Size = new System.Drawing.Size(200, 200);
             m_procentForm.TopMost = true;
-            m_bFirstPlayCard = true;
         }
 
         public void OnGameStart()
@@ -27,6 +26,7 @@ namespace PluginExample.kernal
             m_CurrentDeck = new PlayedDeck();
             
             m_procentForm.Show();
+            m_bFirstPlayCard = true;
         }
 
         public void OnOpponentPlayCard(Hearthstone_Deck_Tracker.Hearthstone.Card card)
