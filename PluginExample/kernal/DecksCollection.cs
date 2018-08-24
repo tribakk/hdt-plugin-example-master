@@ -33,7 +33,8 @@ namespace PluginExample.kernal
         }
         public DecksCollection(List<PlayedDeck> decks)
         {
-            InitDeck();
+            //здесь не нужен InitDeck, т.к. мы инициализируемся уже готовым списком
+            //по новой нам его не надо создавать
             m_Decks = decks;
         }
         public void AddDeck(PlayedDeck deck)
