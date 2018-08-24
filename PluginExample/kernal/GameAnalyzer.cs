@@ -12,13 +12,11 @@ namespace PluginExample.kernal
         DecksCollection m_GameDecks = new DecksCollection();
         PlayedDeck m_CurrentDeck = new PlayedDeck();
         PlayedDeck m_BestDeck;
-        System.Drawing.Graphics m_Graphics;
-        System.Windows.Forms.Form m_procentForm = new System.Windows.Forms.Form();
+        DecksForm m_procentForm = new DecksForm();
         bool m_bFirstPlayCard = true;
 
         public GameAnalyzer()
         {
-            m_Graphics = m_procentForm.CreateGraphics();
             m_procentForm.Size = new System.Drawing.Size(200, 200);
             m_procentForm.TopMost = true;
             m_bFirstPlayCard = true;
@@ -49,16 +47,7 @@ namespace PluginExample.kernal
 
             if (m_procentForm != null)
             {
-                System.Drawing.Size size = m_BestDeck.GetSize();
-                size.Width += (7 * 2); //бордеры формочки
-                size.Height += (30 + 6);
-                if (size.Width < 100)
-                    size.Width = 100;
-                if (size.Width < 100)
-                    size.Width = 100;
-                m_procentForm.Size = size;
-                m_Graphics = m_procentForm.CreateGraphics();
-                m_BestDeck.DrawToGraphics(m_Graphics);
+                m_procentForm.SetShowDeck(m_BestDeck);
             }
         }
 

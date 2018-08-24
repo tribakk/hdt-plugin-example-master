@@ -16,6 +16,7 @@ namespace PluginExample.kernal
         string m_StringDeck;
         HearthDb.Enums.CardClass m_Class;
         double m_DeckPersent = 0;
+        string m_DeckName = "";
         public PlayedDeck()
         {
 
@@ -68,6 +69,7 @@ namespace PluginExample.kernal
                 m_Cards.Add(new Hearthstone_Deck_Tracker.Hearthstone.Card(pEnum.Current.Key), pEnum.Current.Value);
             }
             m_Class = deck.GetHero().Class;
+            m_DeckName = deck.Name;
             //utils.SortDeck(this);
         }
 
@@ -191,7 +193,6 @@ namespace PluginExample.kernal
             dSize.Height += ComponentSize.DeckSize.ProcentLabelHeight;
             return dSize;
         }
-        
 
         public System.Drawing.Size DrawToGraphics(System.Drawing.Graphics pGraphics)
         {

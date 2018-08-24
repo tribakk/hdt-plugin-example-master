@@ -66,6 +66,12 @@
       <DependentUpon>CurvyList.xaml</DependentUpon>
     </Compile>
     <Compile Include="CurvyPlugin.cs" />
+    <Compile Include="DecksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DecksForm.Designer.cs">
+      <DependentUpon>DecksForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="kernal\ComponentSize\ComponentSize.cs" />
     <Compile Include="kernal\DecksCollection.cs" />
     <Compile Include="kernal\GameAnalyzer.cs" />
@@ -85,6 +91,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DecksForm.resx">
+      <DependentUpon>DecksForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
