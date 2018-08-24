@@ -192,13 +192,11 @@ namespace PluginExample.kernal
         public System.Drawing.Size DrawToGraphics(System.Drawing.Graphics pGraphics)
         {
             System.Drawing.Size size = new System.Drawing.Size(0,0);
-            int CurrentHeight = 0;
             string percentStr = (m_DeckPersent * 100).ToString() + " %";
             System.Drawing.SolidBrush pBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             System.Drawing.Font pFont = new System.Drawing.Font("Times New Roman", 16, System.Drawing.FontStyle.Bold);
-            System.Drawing.SizeF ProcentSize = pGraphics.MeasureString(percentStr, pFont, 4000);
             SolidBrush pBackgroundBrush = new SolidBrush(Color.FromArgb(255, 53, 53, 24));
-            CurrentHeight += (int)ProcentSize.Height;
+            int CurrentHeight = 30;
             pGraphics.FillRectangle(pBackgroundBrush, 0, 0, 234, CurrentHeight);
             pGraphics.DrawString(percentStr, pFont, pBrush, new System.Drawing.PointF(80, 3));
             pGraphics.TranslateTransform(0, CurrentHeight);
