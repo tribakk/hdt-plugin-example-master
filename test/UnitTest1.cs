@@ -28,5 +28,24 @@ namespace test
             }
             Assert.AreEqual(FindDeck.Count, 0);
         }
+        [TestMethod]
+        public void TestImageSize()
+        {
+            var cardDb = HearthDb.Cards.Collectible[HearthDb.CardIds.Collectible.Druid.AddledGrizzly];
+            Hearthstone_Deck_Tracker.Hearthstone.Card card = new Hearthstone_Deck_Tracker.Hearthstone.Card(cardDb);
+            System.Drawing.Bitmap bmp = Hearthstone_Deck_Tracker.Utility.ImageCache.GetCardBitmap(card);
+            Assert.AreEqual(bmp.Height, PluginExample.kernal.ComponentSize.DeckSize.ImageHeight);
+            Assert.AreEqual(bmp.Width, PluginExample.kernal.ComponentSize.DeckSize.ImageWidth);
+        }
+
+        [TestMethod]
+        public void TestDeckSize()
+        {
+            PlayedDeck deck = new PlayedDeck("AAECAf0ECvsMoM4Cws4Cm9MCnOICo+sCpvACt/ECw/gCxvgCCk3JA+wHm8IC08UClscCm8sC1+ECluQC4vgCAA==");
+            System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(1,1);
+            System.Drawing.Graphics tempGr = System.Drawing.Graphics.FromImage(bmp);
+            System.Drawing.Size drawSize = deck.DrawToGraphics(tempGr);
+            Assert.IsTrue(drawSize.Equals(deck.GetSize()));
+        }
     }
 }

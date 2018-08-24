@@ -185,7 +185,11 @@ namespace PluginExample.kernal
 
         public System.Drawing.Size GetSize()
         {
-            return new System.Drawing.Size(234, m_Cards.Count * 34 + 27);
+            Size dSize = new Size();
+            dSize.Width = ComponentSize.DeckSize.FullWidht;
+            dSize.Height = m_Cards.Count * ComponentSize.DeckSize.ImageHeight;
+            dSize.Height += ComponentSize.DeckSize.ProcentLabelHeight;
+            return dSize;
         }
         
 
@@ -196,7 +200,7 @@ namespace PluginExample.kernal
             System.Drawing.SolidBrush pBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             System.Drawing.Font pFont = new System.Drawing.Font("Times New Roman", 16, System.Drawing.FontStyle.Bold);
             SolidBrush pBackgroundBrush = new SolidBrush(Color.FromArgb(255, 53, 53, 24));
-            int CurrentHeight = 30;
+            int CurrentHeight = ComponentSize.DeckSize.ProcentLabelHeight;
             pGraphics.FillRectangle(pBackgroundBrush, 0, 0, 234, CurrentHeight);
             pGraphics.DrawString(percentStr, pFont, pBrush, new System.Drawing.PointF(80, 3));
             pGraphics.TranslateTransform(0, CurrentHeight);

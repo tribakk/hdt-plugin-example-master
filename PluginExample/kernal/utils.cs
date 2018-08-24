@@ -79,8 +79,8 @@ namespace PluginExample.kernal
         {
             Bitmap ImageBmp = HDT.Utility.ImageCache.GetCardBitmap(card);
             SetAlphaChannel(ImageBmp);
-            int HWSize = ImageBmp.Height;
-            int FullWidth = 200 + HWSize;
+            int HWSize = ComponentSize.DeckSize.ImageHeight;
+            int FullWidth = ComponentSize.DeckSize.FullWidht;
             int TopPosition = 6;
             Pen RoundPer = new Pen(new SolidBrush(Color.Black));
             

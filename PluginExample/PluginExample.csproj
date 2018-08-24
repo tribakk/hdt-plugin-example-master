@@ -66,6 +66,7 @@
       <DependentUpon>CurvyList.xaml</DependentUpon>
     </Compile>
     <Compile Include="CurvyPlugin.cs" />
+    <Compile Include="kernal\ComponentSize\ComponentSize.cs" />
     <Compile Include="kernal\DecksCollection.cs" />
     <Compile Include="kernal\GameAnalyzer.cs" />
     <Compile Include="kernal\PlayedDeck.cs" />
