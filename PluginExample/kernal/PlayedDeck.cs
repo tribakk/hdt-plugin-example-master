@@ -188,22 +188,33 @@ namespace PluginExample.kernal
         public System.Drawing.Size GetSize()
         {
             Size dSize = new Size();
-            dSize.Width = ComponentSize.DeckSize.FullWidht;
+            dSize.Width = ComponentSize.DeckSize.FullWidht; 
             dSize.Height = m_Cards.Count * ComponentSize.DeckSize.ImageHeight;
-            dSize.Height += ComponentSize.DeckSize.ProcentLabelHeight;
+            dSize.Height += ComponentSize.DeckSize.ProcentLabelHeight;//высота названия колоды
+            dSize.Height += ComponentSize.DeckSize.ProcentLabelHeight;//высота процентов
+
             return dSize;
         }
 
         public System.Drawing.Size DrawToGraphics(System.Drawing.Graphics pGraphics)
         {
             System.Drawing.Size size = new System.Drawing.Size(0,0);
-            string percentStr = (m_DeckPersent * 100).ToString() + " %";
             System.Drawing.SolidBrush pBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             System.Drawing.Font pFont = new System.Drawing.Font("Times New Roman", 16, System.Drawing.FontStyle.Bold);
             SolidBrush pBackgroundBrush = new SolidBrush(Color.FromArgb(255, 53, 53, 24));
             int CurrentHeight = ComponentSize.DeckSize.ProcentLabelHeight;
-            pGraphics.FillRectangle(pBackgroundBrush, 0, 0, 234, CurrentHeight);
-            pGraphics.DrawString(percentStr, pFont, pBrush, new System.Drawing.PointF(80, 3));
+            {
+                pGraphics.FillRectangle(pBackgroundBrush, 0, 0, 234, CurrentHeight);
+                SizeF sizeName = pGraphics.MeasureString(m_DeckName, pFont);
+                double StartX = (ComponentSize.DeckSize.FullWidht - sizeName.Width) / 2.0;
+                pGraphics.DrawString(m_DeckName, pFont, pBrush, new System.Drawing.PointF((int)StartX,3));
+            }
+            {
+                pGraphics.FillRectangle(pBackgroundBrush, 0, CurrentHeight, 234, CurrentHeight);
+                string percentStr = (m_DeckPersent * 100).ToString() + " %";
+                pGraphics.DrawString(percentStr, pFont, pBrush, new System.Drawing.PointF(80, CurrentHeight + 3));
+                CurrentHeight += ComponentSize.DeckSize.ProcentLabelHeight;
+            }
             pGraphics.TranslateTransform(0, CurrentHeight);
             List<Hearthstone_Deck_Tracker.Hearthstone.Card> cardsList = utils.CardDictinaryToList(m_Cards);
             for (int i = 0; i < cardsList.Count; i++)
