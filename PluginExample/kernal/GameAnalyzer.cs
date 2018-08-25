@@ -43,7 +43,6 @@ namespace PluginExample.kernal
             m_BestDeck = m_GameDecks.GetBestCompareDeck(m_CurrentDeck);
             Dictionary<Hearthstone_Deck_Tracker.Hearthstone.Card, int> bestDeck = new Dictionary<Hearthstone_Deck_Tracker.Hearthstone.Card, int>();
             m_BestDeck.CopyToDict(bestDeck);
-            List<Hearthstone_Deck_Tracker.Hearthstone.Card> cardList = utils.CardDictinaryToList(bestDeck);
 
             if (m_procentForm != null)
             {
