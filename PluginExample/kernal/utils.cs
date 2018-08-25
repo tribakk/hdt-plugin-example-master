@@ -95,7 +95,7 @@ namespace PluginExample.kernal
                 pGraphics.DrawString(card.Cost.ToString(), pTextFont, brush, new Point(8, TopPosition));
             }
             SolidBrush pBackgroundBrush = new SolidBrush(Color.FromArgb(255, 53, 53, 24));
-            pGraphics.FillRectangle(pBackgroundBrush, HWSize, 0, FullWidth, HWSize);
+            pGraphics.FillRectangle(pBackgroundBrush, HWSize, 0, FullWidth - HWSize, HWSize);
             pGraphics.DrawImage(ImageBmp, new Point(FullWidth - ImageBmp.Width, 0));
             pGraphics.DrawString(card.Name, new Font("Times New Roman", 12, FontStyle.Bold), new SolidBrush(Color.White), new Point(HWSize, TopPosition + 2));
             if (cardCount > 1)
@@ -103,8 +103,8 @@ namespace PluginExample.kernal
                 SolidBrush brushBackground = new SolidBrush(Color.FromArgb(255, 53, 53, 53));
                 SolidBrush brushCardCount = new SolidBrush(Color.FromArgb(255, 255, 214, 0));
                 int StartX = FullWidth - HWSize;
-                pGraphics.DrawRectangle(RoundPer, StartX, 0, FullWidth, HWSize);
-                pGraphics.FillRectangle(brushBackground, StartX, 0, FullWidth, HWSize);
+                pGraphics.DrawRectangle(RoundPer, StartX, 0, FullWidth - StartX, HWSize);
+                pGraphics.FillRectangle(brushBackground, StartX, 0, FullWidth - StartX, HWSize);
                 pGraphics.DrawString(cardCount.ToString(), pTextFont, brushCardCount, new Point(StartX + 8, TopPosition));
             }
             pGraphics.DrawRectangle(RoundPer, 0, 0, FullWidth, HWSize);
