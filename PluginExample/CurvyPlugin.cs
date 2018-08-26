@@ -60,6 +60,7 @@ namespace PluginExample
             GameEvents.OnGameEnd.Add(gameAnalyzer.OnGameEnd);
             GameEvents.OnOpponentDeckDiscard.Add(gameAnalyzer.OnOpponentPlayCard);
             GameEvents.OnOpponentHandDiscard.Add(gameAnalyzer.OnOpponentPlayCard);
+            GameEvents.OnOpponentSecretTriggered.Add(gameAnalyzer.OnOpponentPlayCard);
         }
 
 		public void OnUnload()
