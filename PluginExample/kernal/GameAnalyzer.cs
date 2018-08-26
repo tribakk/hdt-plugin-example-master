@@ -13,7 +13,7 @@ namespace PluginExample.kernal
         PlayedDeck m_CurrentDeck = new PlayedDeck();
         PlayedDeck m_BestDeck;
         DecksForm m_procentForm = new DecksForm();
-        bool m_bFirstPlayCard = true;
+        bool m_NeedFilterByClass = true;
 
         public GameAnalyzer()
         {
@@ -26,27 +26,42 @@ namespace PluginExample.kernal
             m_CurrentDeck = new PlayedDeck();
             
             m_procentForm.Show();
-            m_bFirstPlayCard = true;
+            m_NeedFilterByClass = true;
         }
 
         public void OnOpponentPlayCard(Hearthstone_Deck_Tracker.Hearthstone.Card card)
         {
-            var game = Hearthstone_Deck_Tracker.API.Core.Game;
-            if (game != null && m_bFirstPlayCard)
-                m_GameDecks = m_GameDecks.FilterDeck(utils.KlassConverter(game.Opponent.Class));
-            m_bFirstPlayCard = false;
+            
+            if (m_NeedFilterByClass)
+            {
+                var game = Hearthstone_Deck_Tracker.API.Core.Game;
+                if (game != null) //для игры
+                {
+                    m_GameDecks = m_GameDecks.FilterDeck(utils.KlassConverter(game.Opponent.Class));
+                    m_NeedFilterByClass = false;
+                }
+                else if(card.IsClassCard)//для отладки тестов (игры то нет)
+                {
+                    m_GameDecks = m_GameDecks.FilterDeck(utils.KlassConverter(card.PlayerClass));
+                    m_NeedFilterByClass = false;
+                }
+            }
+
             if (!card.Collectible)
                 return;
             if (card.IsCreated)
                 return;
             m_CurrentDeck.AddCard(card);
-            m_BestDeck = m_GameDecks.GetBestCompareDeck(m_CurrentDeck);
-            Dictionary<Hearthstone_Deck_Tracker.Hearthstone.Card, int> bestDeck = new Dictionary<Hearthstone_Deck_Tracker.Hearthstone.Card, int>();
-            m_BestDeck.CopyToDict(bestDeck);
 
+            List<PlayedDeck> deckList = m_GameDecks.GetBestDeckList(m_CurrentDeck);
+            deckList.Sort(delegate(PlayedDeck d1, PlayedDeck d2) { return d2.GetFoundPercent().CompareTo(d1.GetFoundPercent());});
+            m_BestDeck = deckList[0];
             if (m_procentForm != null)
             {
-                m_procentForm.SetShowDeck(m_BestDeck);
+                if (deckList.Count <= 8) //иначе по ширине в экран не влезет
+                    m_procentForm.SetShowDeckList(deckList);
+                else
+                    m_procentForm.SetShowDeck(m_BestDeck);
             }
         }
 

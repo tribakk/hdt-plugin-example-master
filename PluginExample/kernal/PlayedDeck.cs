@@ -22,6 +22,10 @@ namespace PluginExample.kernal
 
         }
 
+        public string GetDeckName()
+        {
+            return m_DeckName;
+        }
         public void SetFoundPercent(double p)
         {
             m_DeckPersent = Math.Round(p, 2);

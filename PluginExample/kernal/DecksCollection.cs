@@ -86,6 +86,52 @@ namespace PluginExample.kernal
             playedDeck.ClearDeck(findDeck);
             return findDeck;
         }
+        class FindDeckInfo
+        {
+            public int DeckNumber = 0;
+            public double Procent = 0.0; 
+        };
+
+        public List<PlayedDeck> GetBestDeckList(PlayedDeck playedDeck)
+        {
+            List<PlayedDeck> deckList = new List<PlayedDeck>();
+            Dictionary<string, List<FindDeckInfo>> m_DeckNameMap = new Dictionary<string, List<FindDeckInfo>>();
+            int count = m_Decks.Count;
+            for (int i = 0; i<count; i++)
+            {
+                PlayedDeck deck = m_Decks[i];
+                List<FindDeckInfo> FindDeckList = null;
+                string deckName = deck.GetDeckName();
+                if (!m_DeckNameMap.ContainsKey(deckName))
+                    m_DeckNameMap.Add(deckName, new List<FindDeckInfo>());
+
+                FindDeckList = m_DeckNameMap[deckName];
+                FindDeckInfo info = new FindDeckInfo();
+                info.DeckNumber = i;
+                info.Procent = deck.Compare(playedDeck);
+                FindDeckList.Add(info);
+            }
+
+            var pEnum = m_DeckNameMap.GetEnumerator();
+            for (;pEnum.MoveNext();)
+            {
+                List<FindDeckInfo> deckListSort = pEnum.Current.Value;
+                deckListSort.Sort
+                (
+                    delegate(FindDeckInfo deck1, FindDeckInfo deck2)
+                    {
+                        return deck2.Procent.CompareTo(deck1.Procent);
+                    }
+                );
+                FindDeckInfo info = deckListSort[0];
+                PlayedDeck findDeck = new PlayedDeck(m_Decks[info.DeckNumber].GetSerialzeDeck());
+                findDeck.SetFoundPercent(info.Procent);
+                playedDeck.ClearDeck(findDeck);
+                deckList.Add(findDeck);
+            }
+            return deckList;
+        }
+
 
         private void InitDeck()
         {

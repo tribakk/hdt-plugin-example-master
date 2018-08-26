@@ -75,14 +75,28 @@ namespace emulationGame
 
         }
 
+        static void Test2Deck()
+        {
+            PlayedDeck deck1 = new PlayedDeck("AAECAf0ECvsBrgPmBO0F7Ae4CPsMwcEC2sUCzesCCooBnALJA6sEywTtBJYFudECluQCpvACAA==");
+            PlayedDeck deck2 = new PlayedDeck("AAECAaoICCCZArEI88ICws4C9uwCp+4CzfQCC70B0wH+BdkH8AeRwQKswgKbywKW6AKU7wKw8AIA");
+            List<PlayedDeck> deckList = new List<PlayedDeck>();
+            deckList.Add(deck1);
+            deckList.Add(deck2);
+            PluginExample.DecksForm form = new PluginExample.DecksForm();
+            form.Show();
+            form.SetShowDeckList(deckList);
+            form.RedrawDeck();
+            form.RedrawDeck();
+
+        }
+
         static void Main(string[] args)
         {
-            
-            
             TestDeck();
             //TestLoadDeck();
             //TestBadDeck();
             //TestImage();
+            //Test2Deck();
         }
     }
 }
